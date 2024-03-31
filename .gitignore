@@ -143,3 +143,6 @@ dist
 
 # environment file
 .env
+
+# Database
+/mongo
