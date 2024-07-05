@@ -17,12 +17,12 @@ export class Cash {
   })
   currency: string;
 
-  @Column('date', {
+  @Column('timestamptz', {
     default: new Date(),
   })
-  created_at: Date;
+  created_at?: Date;
 
-  @Column('date', {
+  @Column('timestamptz', {
     nullable: true,
   })
   updated_at?: Date;

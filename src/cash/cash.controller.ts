@@ -10,14 +10,17 @@ import {
 import { CashService } from './cash.service';
 import { CreateCashDto } from './dto/create-cash.dto';
 import { UpdateCashDto } from './dto/update-cash.dto';
+import { Auth, GetUser } from 'src/auth/decorators';
+import { User } from 'src/auth/entities/user.entity';
 
-@Controller('cash')
+@Controller('transactions')
 export class CashController {
   constructor(private readonly cashService: CashService) {}
 
+  @Auth()
   @Post()
-  create(@Body() createCashDto: CreateCashDto) {
-    return this.cashService.create(createCashDto);
+  create(@Body() createCashDto: CreateCashDto, @GetUser() user: User) {
+    return this.cashService.create(createCashDto, user);
   }
 
   @Get()
@@ -25,14 +28,19 @@ export class CashController {
     return this.cashService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.cashService.findOne(id);
+  @Get(':query')
+  findOne(@Param('query') query: string) {
+    return this.cashService.findOne(query);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCashDto: UpdateCashDto) {
-    return this.cashService.update(id, updateCashDto);
+  @Auth()
+  update(
+    @Param('id') id: string,
+    @Body() updateCashDto: UpdateCashDto,
+    @GetUser() user: User,
+  ) {
+    return this.cashService.update(id, updateCashDto, user);
   }
 
   @Delete(':id')
