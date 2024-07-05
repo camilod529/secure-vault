@@ -1,8 +1,10 @@
+import { Cash } from 'src/cash/entities/cash.entity';
 import {
   BeforeInsert,
   BeforeUpdate,
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -34,6 +36,14 @@ export class User {
     default: ['user'],
   })
   roles: string[];
+
+  @Column('bool', {
+    default: false,
+  })
+  deleted: boolean;
+
+  @OneToMany(() => Cash, (c) => c.createdBy)
+  transactions: Cash[];
 
   @BeforeInsert()
   emailToLowerCase() {
