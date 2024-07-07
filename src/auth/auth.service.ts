@@ -46,6 +46,7 @@ export class AuthService {
       select: {
         email: true,
         password: true,
+        fullName: true,
         id: true,
       },
     });
