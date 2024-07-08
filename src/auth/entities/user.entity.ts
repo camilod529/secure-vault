@@ -1,9 +1,11 @@
 import { Cash } from 'src/cash/entities/cash.entity';
+import { Vault } from 'src/vault/entities/vault.entity';
 import {
   BeforeInsert,
   BeforeUpdate,
   Column,
   Entity,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -44,6 +46,12 @@ export class User {
 
   @OneToMany(() => Cash, (c) => c.createdBy)
   transactions: Cash[];
+
+  @ManyToOne(() => Vault, (v) => v.users, {
+    eager: true,
+    nullable: true,
+  })
+  vaults: Vault[];
 
   @BeforeInsert()
   emailToLowerCase() {

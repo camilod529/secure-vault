@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CashModule } from './cash/cash.module';
+import { VaultModule } from './vault/vault.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { CashModule } from './cash/cash.module';
     }),
     AuthModule,
     CashModule,
+    VaultModule,
   ],
   controllers: [AppController],
   providers: [AppService],

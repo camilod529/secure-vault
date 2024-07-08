@@ -1,4 +1,5 @@
 import { User } from 'src/auth/entities/user.entity';
+import { Vault } from 'src/vault/entities/vault.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('transactions')
@@ -36,4 +37,9 @@ export class Cash {
     eager: true,
   })
   createdBy: User;
+
+  @ManyToOne(() => Vault, (u) => u.money, {
+    eager: true,
+  })
+  vault: Vault;
 }
