@@ -1,4 +1,10 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  BadRequestException,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto, LoginUserDto } from './dto';
 import { User } from './entities/user.entity';
@@ -12,6 +18,9 @@ export class AuthController {
 
   @Post('register')
   create(@Body() createUserDto: CreateUserDto) {
+    throw new BadRequestException(
+      'We are not accepting new users at the moment. Please try again later.',
+    );
     return this.authService.create(createUserDto);
   }
 
